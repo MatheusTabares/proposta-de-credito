@@ -41,9 +41,10 @@ public class Proposta implements Serializable {
 	
 	public Proposta() {}
 
-	public Proposta(String nome, String cpf, Integer idade, char sexo, EstadoCivil estadoCivil, String estado,
+	public Proposta(Integer id, String nome, String cpf, Integer idade, char sexo, EstadoCivil estadoCivil, String estado,
 			Integer dependentes, Double renda) {
 		super();
+		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;

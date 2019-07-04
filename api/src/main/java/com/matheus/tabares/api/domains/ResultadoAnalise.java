@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ResultadoAnalise implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,6 +24,7 @@ public class ResultadoAnalise implements Serializable{
 	
 	private String motivoNegacao;
 	
+	@JsonIgnore
 	@OneToOne(mappedBy = "resultadoAnalise")
 	private Proposta proposta;
 	

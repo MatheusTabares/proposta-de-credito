@@ -1,7 +1,13 @@
 package com.matheus.tabares.api.resources;
 
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +24,17 @@ public class PropostaResource {
 	private PropostaService service;
 	
 	@PostMapping
-	private ResponseEntity<?> analisar(@RequestBody Proposta proposta) {
+	private ResponseEntity<?> analisar(@Valid @RequestBody Proposta proposta) {
 		return ResponseEntity.ok(service.analisar(proposta));
 	}
-
+	
+	@GetMapping(value = "/{cpf}")
+	public ResponseEntity<?> encontrarPorCpf(@PathVariable String cpf) {
+		Optional<Proposta> proposta = service.encontrarPorCpf(cpf);
+		if(proposta.isPresent()) {
+			return ResponseEntity.ok(proposta);
+		} 
+		return ResponseEntity.notFound().build();
+	}
+	
 }

@@ -1,10 +1,13 @@
 package com.matheus.tabares.api.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.matheus.tabares.api.domains.Proposta;
 import com.matheus.tabares.api.domains.ResultadoAnalise;
+import com.matheus.tabares.api.domains.enums.EstadoCivil;
 import com.matheus.tabares.api.repositories.PropostaRepository;
 
 @Service
@@ -17,20 +20,26 @@ public class PropostaService {
 	@Autowired
 	private PropostaRepository propostaRepository;
 	
-	@Autowired
-	private ResultadoAnaliseService resultadoAnaliseService;
-	
-	public ResultadoAnalise analisar(Proposta proposta) {
-		salvar(proposta);
-
+	public Proposta analisar(Proposta proposta) {
 		int pontuacao = analisarRendaPercapita(proposta);
 		pontuacao += proposta.getEstadoCivil().getPontuacao();
+		pontuacao = analiseDeRisco(proposta, pontuacao);
 		
 		ResultadoAnalise resultadoAnalise = analisarPontuacao(pontuacao);
-		resultadoAnalise.setProposta(proposta);
-		resultadoAnaliseService.salvar(resultadoAnalise);
-		
-		return resultadoAnalise;
+		proposta.setResultadoAnalise(resultadoAnalise);
+		salvarProposta(proposta);
+		return proposta;
+	}
+	
+	public Optional<Proposta> encontrarPorCpf(String cpf) { 
+		return propostaRepository.findByCpf(cpf);
+	}
+	
+	private int analiseDeRisco(Proposta proposta, int pontuacao) {
+		if(pontuacao >= 100 && proposta.getEstadoCivil().equals(EstadoCivil.SOLTEIRO) && proposta.getIdade() < 30 && proposta.getSexo() == 'M' && proposta.getDependentes() == 0) {
+			pontuacao = 80;
+		}
+		return pontuacao;
 	}
 	
 	private int analisarRendaPercapita(Proposta proposta) {
@@ -76,10 +85,11 @@ public class PropostaService {
 			resultadoAnalise.setAprovado(true);
 			resultadoAnalise.setLimiteCredito("superior 2000");
 		}
+
 		return resultadoAnalise;
 	}
 
-	private void salvar(Proposta proposta) {
+	private void salvarProposta(Proposta proposta) {
 		proposta.setId(null);
 		propostaRepository.save(proposta);
 	}
