@@ -16,26 +16,31 @@ public class PropostaService {
 	private static final int PONTUACAO_NEGADO_POLITICA_DE_CREDITO = 20;
 
 	private static final int PONTUACAO_NEGADO_RENDA_BAIXA = 60;
+
+	private static final Integer CLIENTE_DA_PROPOSTA = 1;
 	
 	@Autowired
 	private PropostaRepository propostaRepository;
 	
 	public Proposta analisar(Proposta proposta) {
 		int pontuacao = analisarRendaPercapita(proposta);
-		pontuacao += proposta.getEstadoCivil().getPontuacao();
-		pontuacao = analiseDeRisco(proposta, pontuacao);
+		pontuacao += somarPontuacaoEstadoCivil(proposta);
+		pontuacao = analisarRiscosCriticos(proposta, pontuacao);
 		
 		ResultadoAnalise resultadoAnalise = analisarPontuacao(pontuacao);
 		proposta.setResultadoAnalise(resultadoAnalise);
-		salvarProposta(proposta);
-		return proposta;
+		return salvarProposta(proposta);
 	}
 	
+	private int somarPontuacaoEstadoCivil(Proposta proposta) {
+		return proposta.getEstadoCivil().getPontuacao();
+	}
+
 	public Optional<Proposta> encontrarPorCpf(String cpf) { 
 		return propostaRepository.findByCpf(cpf);
 	}
 	
-	private int analiseDeRisco(Proposta proposta, int pontuacao) {
+	private int analisarRiscosCriticos(Proposta proposta, int pontuacao) {
 		if(pontuacao >= 100 && proposta.getEstadoCivil().equals(EstadoCivil.SOLTEIRO) && proposta.getIdade() < 30 && proposta.getSexo() == 'M' && proposta.getDependentes() == 0) {
 			pontuacao = 80;
 		}
@@ -43,8 +48,8 @@ public class PropostaService {
 	}
 	
 	private int analisarRendaPercapita(Proposta proposta) {
-		double percapita = proposta.getRenda() / (proposta.getDependentes() + 1);
 		int pontuacao = 0;
+		double percapita = calcularRendaPercapita(proposta);
 		
 		if(percapita > 800 && percapita <= 1000) {
 			pontuacao = 10;
@@ -58,6 +63,10 @@ public class PropostaService {
 			pontuacao = 100;
 		}
 		return pontuacao;
+	}
+
+	private double calcularRendaPercapita(Proposta proposta) {
+		return proposta.getRenda() / (proposta.getDependentes() + CLIENTE_DA_PROPOSTA);
 	}
 
 	private ResultadoAnalise analisarPontuacao(int pontuacao) {
@@ -89,8 +98,8 @@ public class PropostaService {
 		return resultadoAnalise;
 	}
 
-	private void salvarProposta(Proposta proposta) {
+	private Proposta salvarProposta(Proposta proposta) {
 		proposta.setId(null);
-		propostaRepository.save(proposta);
+		return propostaRepository.save(proposta);
 	}
 }

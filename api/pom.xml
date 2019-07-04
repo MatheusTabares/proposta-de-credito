@@ -15,7 +15,7 @@
 	<description>Aplicação web que realiza o cadastro da proposta de crédito para um determinado cliente, efetua a análise dos dados e efetiva a aprovação ou negação de um limite de crédito para o mesmo.</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
