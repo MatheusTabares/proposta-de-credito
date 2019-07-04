@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -34,7 +35,8 @@ public class Proposta implements Serializable {
 	private Integer dependentes;
 	private Double renda;
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="proposta")
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "resultadoAnalise_id", referencedColumnName = "id")
 	private ResultadoAnalise resultadoAnalise;
 	
 	public Proposta() {}

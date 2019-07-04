@@ -13,7 +13,6 @@ public class ResultadoAnaliseService {
 	private ResultadoAnaliseRepository repo;
 	
 	public ResultadoAnalise salvar(ResultadoAnalise resultado) {
-		resultado.setId(null);
 		return repo.save(resultado);
 	}
 }

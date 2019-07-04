@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,9 +22,7 @@ public class ResultadoAnalise implements Serializable{
 	
 	private String motivoNegacao;
 	
-	@OneToOne
-	@JoinColumn(name="proposta_id")
-	@MapsId
+	@OneToOne(mappedBy = "resultadoAnalise")
 	private Proposta proposta;
 	
 	public ResultadoAnalise() {}
