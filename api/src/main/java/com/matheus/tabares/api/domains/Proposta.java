@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -28,11 +30,19 @@ public class Proposta implements Serializable {
 	
 	@CPF(message = "CPF inválido")
 	private String cpf;
+	
+	@NotNull(message = "Idade não pode estar em branco.")
+	@Min(value = 16, message = "Idade mínima permitida apartir de 16 anos.")
 	private Integer idade;
+	
 	private char sexo;
 	private EstadoCivil estadoCivil;
 	private String estado;
+	
+	@NotNull(message = "Dependentes não pode estar em branco.")
 	private Integer dependentes;
+	
+	@NotNull(message = "Renda não pode estar em branco.")
 	private Double renda;
 	
 	@OneToOne(cascade = CascadeType.ALL)
