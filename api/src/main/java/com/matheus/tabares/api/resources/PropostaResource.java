@@ -19,7 +19,7 @@ public class PropostaResource {
 	
 	@PostMapping
 	private ResponseEntity<?> analisar(@RequestBody Proposta proposta) {
-		return ResponseEntity.ok(service.salvar(proposta));
+		return ResponseEntity.ok(service.analisar(proposta));
 	}
 
 }

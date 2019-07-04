@@ -1,11 +1,18 @@
-package com.matheus.tabares.api.domains;
+	package com.matheus.tabares.api.domains;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.matheus.tabares.api.domains.enums.EstadoCivil;
 
 @Entity
 public class Proposta implements Serializable {
@@ -14,21 +21,27 @@ public class Proposta implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@NotBlank(message = "Nome não pode estar em branco.")
 	private String nome;
+	
+	@CPF(message = "CPF inválido")
 	private String cpf;
 	private Integer idade;
 	private char sexo;
-	private String estadoCivil;
+	private EstadoCivil estadoCivil;
 	private String estado;
 	private Integer dependentes;
 	private Double renda;
 	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="proposta")
+	private ResultadoAnalise resultadoAnalise;
+	
 	public Proposta() {}
 
-	public Proposta(Integer id, String nome, String cpf, Integer idade, char sexo, String estadoCivil, String estado,
+	public Proposta(String nome, String cpf, Integer idade, char sexo, EstadoCivil estadoCivil, String estado,
 			Integer dependentes, Double renda) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.idade = idade;
@@ -79,11 +92,11 @@ public class Proposta implements Serializable {
 		this.sexo = sexo;
 	}
 
-	public String getEstadoCivil() {
+	public EstadoCivil getEstadoCivil() {
 		return estadoCivil;
 	}
 
-	public void setEstadoCivil(String estadoCivil) {
+	public void setEstadoCivil(EstadoCivil estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
 
@@ -109,6 +122,14 @@ public class Proposta implements Serializable {
 
 	public void setRenda(Double renda) {
 		this.renda = renda;
+	}
+	
+	public ResultadoAnalise getResultadoAnalise() {
+		return resultadoAnalise;
+	}
+
+	public void setResultadoAnalise(ResultadoAnalise resultadoAnalise) {
+		this.resultadoAnalise = resultadoAnalise;
 	}
 
 	@Override
