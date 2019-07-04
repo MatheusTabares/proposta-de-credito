@@ -52,6 +52,11 @@
 		"renda": 10000.00
 	 }
     
+
+	**Documentação das rotas você encontra aqui**
+	http://localhost:8080/swagger-ui.html
+
+	
 ## Observações
 Para realizar a análise do crédito foi implementado um algoritmo baseado em pontuação, no qual a pontuação mínima para o crédito ser aprovado é `70 pontos`.
 	*Exemplo:
