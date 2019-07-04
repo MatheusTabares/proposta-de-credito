@@ -38,9 +38,9 @@
 	*`docker run -p 8080:8080 proposta-credito`
 
 5.Para enviar a proposta de crédito para a análise utilize a URL e o formato JSON a seguir:
-	**`POST http://localhost:8080/propostas`**
+	`POST http://localhost:8080/propostas`
 	
-	**Body da requisição:**
+	Corpo da requisição:
 	{
 		"nome": "Ariel",
 		"idade": 33,
@@ -54,11 +54,11 @@
     
 ## Observações
 Para realizar a análise do crédito foi implementado um algoritmo baseado em pontuação, no qual a pontuação mínima para o crédito ser aprovado é `70 pontos`.
-	**Exemplo:
-	**Uma pessoa casada ou solteira obtem 60 pontos, caso a renda informada dividida pelo número de dependentes mais o cliente, seja igual ou maior que o valor mínimo estabelecido de R$800, a mesma terá sua proposta aprovada. O limite de crédito para esta pessoa dependerá do valor da renda percapita, salvo se ela não seja uma pessoa de risco crítico. 
+	*Exemplo:
+	Uma pessoa casada ou solteira obtem 60 pontos, caso a renda informada dividida pelo número de dependentes mais o cliente, seja igual ou maior que o valor mínimo estabelecido de R$800, a mesma terá sua proposta aprovada. O limite de crédito para esta pessoa dependerá do valor da renda percapita, salvo se ela não seja uma pessoa de risco crítico. 
 
-	**Pessoa de risco crítico:
-	**Com idade menor que 30 anos, solteiro, sexo masculino, sem dependentes.
+	Pessoa de risco crítico:
+	Com idade menor que 30 anos, solteiro, sexo masculino, sem dependentes.
 
 
 
