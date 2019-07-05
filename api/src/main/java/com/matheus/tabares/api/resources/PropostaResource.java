@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class PropostaResource {
 	@Autowired
 	private PropostaService service;
 	
+	@CrossOrigin
 	@PostMapping
 	private ResponseEntity<?> analisar(@Valid @RequestBody Proposta proposta) {
 		return ResponseEntity.ok(service.analisar(proposta));
