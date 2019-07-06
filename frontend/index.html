@@ -2,51 +2,37 @@
 <html>
     <head>
         <title>Proposta de Crédito</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="css/estilo.css">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="controller.js"></script>
+        <script src="js/controllers/propostaCreditoController.js"></script>
+        <script src="js/services/propostaCreditoService.js"></script>
     </head>
-    <body>
-        <div ng-app="mainApp" ng-controller="PropostaCreditoController">
-            <table>
-                <tr>
-                    <td>Nome</td>
-                    <td><input type="text" ng-model="Nome"></td>
-                </tr>
-                <tr>
-                    <td>CPF</td>
-                    <td><input type="text" ng-model="Cpf"></td>
-                </tr>
-                <tr>
-                    <td>Idade</td>
-                    <td><input type="number" ng-model="Idade"></td>
-                </tr>
-                <tr>
-                    <td>Sexo</td>
-                    <td><input type="text" ng-model="Sexo"></td>
-                </tr>
-                <tr>
-                    <td>Estado Civil</td>
-                    <td><input type="text" ng-model="EstadoCivil"></td>
-                </tr>
-                <tr>
-                    <td>Estado</td>
-                    <td><input type="text" ng-model="Estado"></td>
-                </tr>
-                <tr>
-                    <td>Dependentes</td>
-                    <td><input type="number" ng-model="Dependentes"></td>
-                </tr>
-                <tr>
-                    <td>Renda R$</td>
-                    <td><input type="number" ng-model="Renda"></td>
-                </tr>
-                <tr>
-                    <td><input type="button" ng-click="cadastrarProposta()" value="Cadastrar"></td>
-                </tr>
-            </table>
-
-            <table border="1" style="width:300px;">
+    <body ng-app="propostaCredito" ng-controller="propostaCreditoController">
+        <div class="jumbotron">
+            <h3>{{tituloPropostaCredito}}</h3>
+            <input type="text" ng-model="proposta.nome" placeholder="Nome" class="form-control">
+            
+            <input type="text" ng-model="proposta.cpf" placeholder="CPF" class="form-control">
+            
+            <input type="number" ng-model="proposta.idade" placeholder="Idade" class="form-control">
+            
+            <input type="text" ng-model="proposta.sexo" placeholder="Sexo" class="form-control">
+            
+            <input type="text" ng-model="proposta.estadoCivil" placeholder="Estado Civil" class="form-control">
+        
+            <input type="text" ng-model="proposta.estado" placeholder="Estado" class="form-control">
+                
+            <input type="number" ng-model="proposta.dependentes" placeholder="Dependentes" class="form-control">
+                
+            <input type="number" ng-model="proposta.renda" placeholder="Renda R$" class="form-control">
+            
+            <input type="button" ng-click="cadastrarProposta(proposta)" value="Cadastrar" class="btn btn-primary">
+                
+            <table class="table table-striped">
                 <thead>
                     <th>Nome</th>
                     <th>Idade</th>
@@ -55,8 +41,8 @@
                     <th>Estado</th>
                     <th>Dependentes</th>
                     <th>Renda R$</th>
-                    <!--<th>Resultado Análise</th>
-                    <th>Limite</th>-->
+                    <th>Resultado Análise</th>
+                    <th>Limite</th>
                 </thead>
                 <tbody ng-repeat="proposta in propostas">
                     <td>{{proposta.nome}}</td>
@@ -66,8 +52,8 @@
                     <td>{{proposta.estado}}</td>
                     <td>{{proposta.dependentes}}</td>
                     <td>{{proposta.renda}}</td>
-                    <!--<td>{{proposta.resultadoAnalise}}</td>
-                    <td>{{}}</td>-->
+                    <td>{{proposta.resultadoAnalise.aprovado ? 'APROVADO' : 'NEGADO'}}</td>
+                    <td>{{proposta.resultadoAnalise.aprovado ? proposta.resultadoAnalise.limiteCredito : proposta.resultadoAnalise.motivoNegacao}}</td>
                 </tbody>
             </table>
         </div>    
