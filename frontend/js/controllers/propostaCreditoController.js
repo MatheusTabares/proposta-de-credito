@@ -4,11 +4,22 @@ app.controller("propostaCreditoController", function($scope, propostaCreditoServ
 
     $scope.tituloPropostaCredito = "Proposta de Crédito"
     $scope.propostas=[];
+    $scope.estados=[
+        {nome: "Acre"},
+        {nome: "Alagoas"},
+        {nome: "Amapá"}
+    ];
+    $scope.sexos=[
+        {cod: "M", nome: "Masculino"},
+        {cod: "F", nome: "Feminino"}
+    ];
     
     $scope.cadastrarProposta = function(proposta) {
         
         propostaCreditoService.cadastrarProposta(proposta).then(function (result) {
             delete $scope.proposta;
+            $scope.propostaForm.$setPristine();
+            
             if(result.status == 200) {
                 $scope.propostas.push(result.data);
                 limparDados();

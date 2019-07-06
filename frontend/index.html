@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="UTF-8">  
         <title>Proposta de Crédito</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
@@ -14,24 +15,68 @@
     <body ng-app="propostaCredito" ng-controller="propostaCreditoController">
         <div class="jumbotron">
             <h3>{{tituloPropostaCredito}}</h3>
-            <input type="text" ng-model="proposta.nome" placeholder="Nome" class="form-control">
-            
-            <input type="text" ng-model="proposta.cpf" placeholder="CPF" class="form-control">
-            
-            <input type="number" ng-model="proposta.idade" placeholder="Idade" class="form-control">
-            
-            <input type="text" ng-model="proposta.sexo" placeholder="Sexo" class="form-control">
-            
-            <input type="text" ng-model="proposta.estadoCivil" placeholder="Estado Civil" class="form-control">
-        
-            <input type="text" ng-model="proposta.estado" placeholder="Estado" class="form-control">
+            <form name="propostaForm">
+                <!-- CAMPO NOME-->
+                <input type="text" ng-model="proposta.nome" name="nome" placeholder="Nome" class="form-control" ng-required="true" ng-minlength="3" ng-maxlength="70">
+                <div ng-show="propostaForm.nome.$error.required && propostaForm.nome.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo Nome!    
+                </div>
+                <div ng-show="propostaForm.nome.$error.minlength" class="alert alert-warning">
+                    O campo Nome deve ter 3 caracteres no mínimo!    
+                </div>
+                <div ng-show="propostaForm.nome.$error.maxlength" class="alert alert-warning">
+                    O campo Nome deve ter 100 caracteres no máximo!    
+                </div>
                 
-            <input type="number" ng-model="proposta.dependentes" placeholder="Dependentes" class="form-control">
+                <!-- CAMPO CPF-->
+                <input type="text" ng-model="proposta.cpf" name="cpf" placeholder="CPF" class="form-control" ng-required="true">
+                <div ng-show="propostaForm.cpf.$invalid && propostaForm.cpf.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo CPF!    
+                </div>
                 
-            <input type="number" ng-model="proposta.renda" placeholder="Renda R$" class="form-control">
+                <!-- CAMPO IDADE-->
+                <input type="number" ng-model="proposta.idade" name="idade" placeholder="Idade" class="form-control" ng-required="true">
+                <div ng-show="propostaForm.idade.$error.required && propostaForm.idade.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo Idade!    
+                </div>
+                
+                <!-- CAMPO SEXO-->
+                <select ng-model="proposta.sexo" ng-options="sexo.cod as sexo.nome for sexo in sexos" name="sexo" class="form-control" ng-required="true">
+                    <option value="">Sexo</option>
+                </select>   
+                <div ng-show="propostaForm.sexo.$invalid && propostaForm.sexo.$dirty" class="alert alert-danger">
+                    Por favor, preencha o Sexo!    
+                </div>
+               
+                <!-- CAMPO ESTADO CIVIL-->
+                <input type="text" ng-model="proposta.estadoCivil" name="estadoCivil" placeholder="Estado Civil" class="form-control" ng-required="true">
+                <div ng-show="propostaForm.estadoCivil.$invalid && propostaForm.estadoCivil.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo Estado Civil!    
+                </div>
+
+                <!-- CAMPO ESTADO-->
+                <select ng-model="proposta.estado" ng-options="estado.nome as estado.nome for estado in estados" name="estado" class="form-control" ng-required="true">
+                    <option value="">Selecione um estado</option>
+                </select>   
+                <div ng-show="propostaForm.estado.$invalid && propostaForm.estado.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo Estado!    
+                </div>
+
+                <!-- CAMPO DEPENDENTES-->
+                <input type="number" ng-model="proposta.dependentes" name="dependentes" placeholder="Dependentes" class="form-control" ng-required="true">
+                <div ng-show="propostaForm.dependentes.$invalid && propostaForm.dependentes.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo Dependentes!    
+                </div>
+
+                <!-- CAMPO RENDA-->
+                <input type="number" ng-model="proposta.renda" name="renda" placeholder="Renda R$" class="form-control" ng-required="true">
+                <div ng-show="propostaForm.renda.$invalid && propostaForm.renda.$dirty" class="alert alert-danger">
+                    Por favor, preencha o campo Renda!    
+                </div>    
+         
+                <input type="button" ng-click="cadastrarProposta(proposta)" value="Cadastrar" class="btn btn-primary" ng-disabled="propostaForm.$invalid">
+            </form>
             
-            <input type="button" ng-click="cadastrarProposta(proposta)" value="Cadastrar" class="btn btn-primary">
-                
             <table class="table table-striped">
                 <thead>
                     <th>Nome</th>
