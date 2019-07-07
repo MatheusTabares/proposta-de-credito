@@ -30,6 +30,7 @@ public class PropostaResource {
 		return ResponseEntity.ok(service.analisar(proposta));
 	}
 	
+	@CrossOrigin
 	@GetMapping(value = "/{cpf}")
 	public ResponseEntity<?> encontrarPorCpf(@PathVariable String cpf) {
 		Optional<Proposta> proposta = service.encontrarPorCpf(cpf);

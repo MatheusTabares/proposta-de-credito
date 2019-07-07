@@ -18,3 +18,15 @@
     margin-top: 20px;
     width: 200px;
 }
+
+.filtroCpf {
+    width: 300px;
+}
+
+.form-group {
+    display: inline-table;
+}
+
+.footer {
+    text-align: center;
+}

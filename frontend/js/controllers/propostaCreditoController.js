@@ -13,7 +13,14 @@ app.controller("propostaCreditoController", function($scope, propostaCreditoServ
         {cod: "M", nome: "Masculino"},
         {cod: "F", nome: "Feminino"}
     ];
-    
+    $scope.estadosCivis=[
+        {cod: "SOLTEIRO", nome: "Solteiro(a)"},
+        {cod: "CASADO", nome: "Casado(a)"},
+        {cod: "VIUVO", nome: "Viúvo(a)"},
+        {cod: "DIVORCIADO", nome: "Divorciado(a)"}
+    ];
+    $('.dinheiro').mask('#.##0,00', {reverse: true});
+
     $scope.cadastrarProposta = function(proposta) {
         
         propostaCreditoService.cadastrarProposta(proposta).then(function (result) {
@@ -21,11 +28,20 @@ app.controller("propostaCreditoController", function($scope, propostaCreditoServ
             $scope.propostaForm.$setPristine();
             
             if(result.status == 200) {
-                $scope.propostas.push(result.data);
+                alert("Cadastrado com sucesso!");
                 limparDados();
             }
         });
 
+    }
+
+    $scope.buscarPropostaPorCpf = function(filtroCpf) {
+        $scope.propostas = [];
+        propostaCreditoService.buscarPorCpf(filtroCpf).then(function (result) {
+            $scope.propostas.push(result.data);
+        }, function(notFound) {
+            alert("Nenhuma proposta encontrada para o cpf informado!");
+        });
     }
 
     function limparDados() {

@@ -11,6 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="js/controllers/propostaCreditoController.js"></script>
         <script src="js/services/propostaCreditoService.js"></script>
+        <script src="lib/angular/angular-locale_pt-br.js"></script>
+        <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
     </head>
     <body ng-app="propostaCredito" ng-controller="propostaCreditoController">
         <div class="jumbotron">
@@ -49,14 +51,16 @@
                 </div>
                
                 <!-- CAMPO ESTADO CIVIL-->
-                <input type="text" ng-model="proposta.estadoCivil" name="estadoCivil" placeholder="Estado Civil" class="form-control" ng-required="true">
+                <select ng-model="proposta.estadoCivil" ng-options="estadoCivil.cod as estadoCivil.nome for estadoCivil in estadosCivis" name="estadoCivil" class="form-control" ng-required="true">
+                    <option value="">Estado Civil</option>
+                </select>   
                 <div ng-show="propostaForm.estadoCivil.$invalid && propostaForm.estadoCivil.$dirty" class="alert alert-danger">
-                    Por favor, preencha o campo Estado Civil!    
+                    Por favor, preencha o Estado Civil!    
                 </div>
-
+            
                 <!-- CAMPO ESTADO-->
                 <select ng-model="proposta.estado" ng-options="estado.nome as estado.nome for estado in estados" name="estado" class="form-control" ng-required="true">
-                    <option value="">Selecione um estado</option>
+                    <option value="">Estado</option>
                 </select>   
                 <div ng-show="propostaForm.estado.$invalid && propostaForm.estado.$dirty" class="alert alert-danger">
                     Por favor, preencha o campo Estado!    
@@ -73,10 +77,12 @@
                 <div ng-show="propostaForm.renda.$invalid && propostaForm.renda.$dirty" class="alert alert-danger">
                     Por favor, preencha o campo Renda!    
                 </div>    
-         
                 <input type="button" ng-click="cadastrarProposta(proposta)" value="Cadastrar" class="btn btn-primary" ng-disabled="propostaForm.$invalid">
             </form>
-            
+            <hr />
+            <input type="text" ng-model="filtroCpf" placeholder="Busque pelo CPF" class="form-control">
+            <button class="btn btn-secondary" ng-click="buscarPropostaPorCpf(filtroCpf)" type="button">Buscar!</button>
+        
             <table class="table table-striped">
                 <thead>
                     <th>Nome</th>
@@ -96,11 +102,14 @@
                     <td>{{proposta.estadoCivil}}</td>
                     <td>{{proposta.estado}}</td>
                     <td>{{proposta.dependentes}}</td>
-                    <td>{{proposta.renda}}</td>
+                    <td>{{proposta.renda | currency}}</td>
                     <td>{{proposta.resultadoAnalise.aprovado ? 'APROVADO' : 'NEGADO'}}</td>
                     <td>{{proposta.resultadoAnalise.aprovado ? proposta.resultadoAnalise.limiteCredito : proposta.resultadoAnalise.motivoNegacao}}</td>
                 </tbody>
             </table>
+        </div>
+        <div class="footer">
+            Criado por Matheus Tabares
         </div>    
     </body>
 </html>

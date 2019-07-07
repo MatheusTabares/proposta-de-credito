@@ -3,7 +3,12 @@ angular.module("propostaCredito").factory("propostaCreditoService", function($ht
         return $http.post("http://localhost:8080/propostas", proposta);
     }
 
+    var _buscarPorCpf = function(filtroCpf) {
+        return $http.get("http://localhost:8080/propostas/"+filtroCpf);
+    }
+
     return {
-        cadastrarProposta : _cadastrarProposta
+        cadastrarProposta : _cadastrarProposta,
+        buscarPorCpf : _buscarPorCpf
     };
 });
