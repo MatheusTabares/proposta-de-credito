@@ -69,7 +69,7 @@
 
 ## Executar frontend
 
-1.Navegue até a pasta /frontend no repositório:
+1.Navegue até a pasta /frontend no repositório clonado em sua máquina:
 	*`cd frontend/`
 
 3.Construa a aplicação e execute os testes com o comando:
