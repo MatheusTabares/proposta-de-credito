@@ -37,9 +37,12 @@
                 </div>
                 
                 <!-- CAMPO IDADE-->
-                <input type="number" ng-model="proposta.idade" name="idade" placeholder="Idade" class="form-control" ng-required="true">
+                <input type="number" ng-model="proposta.idade" name="idade" placeholder="Idade" class="form-control" ng-required="true" ng-min="16">
                 <div ng-show="propostaForm.idade.$error.required && propostaForm.idade.$dirty" class="alert alert-danger">
                     Por favor, preencha o campo Idade!    
+                </div>
+                <div ng-show="propostaForm.idade.$error.min" class="alert alert-warning">
+                    Idade mínima permitida: 16 anos    
                 </div>
                 
                 <!-- CAMPO SEXO-->
@@ -67,15 +70,21 @@
                 </div>
 
                 <!-- CAMPO DEPENDENTES-->
-                <input type="number" ng-model="proposta.dependentes" name="dependentes" placeholder="Dependentes" class="form-control" ng-required="true">
-                <div ng-show="propostaForm.dependentes.$invalid && propostaForm.dependentes.$dirty" class="alert alert-danger">
+                <input type="number" ng-model="proposta.dependentes" name="dependentes" placeholder="Dependentes" class="form-control" ng-required="true" ng-min="0">
+                <div ng-show="propostaForm.dependentes.$error.required && propostaForm.dependentes.$dirty" class="alert alert-danger">
                     Por favor, preencha o campo Dependentes!    
+                </div>
+                <div ng-show="propostaForm.dependentes.$error.min" class="alert alert-warning">
+                    Número mínimo de dependentes: 0    
                 </div>
 
                 <!-- CAMPO RENDA-->
-                <input type="number" ng-model="proposta.renda" name="renda" placeholder="Renda R$" class="form-control" ng-required="true">
-                <div ng-show="propostaForm.renda.$invalid && propostaForm.renda.$dirty" class="alert alert-danger">
+                <input type="number" ng-model="proposta.renda" name="renda" placeholder="Renda R$" class="form-control" ng-required="true" ng-min="0">
+                <div ng-show="propostaForm.renda.$error.required && propostaForm.renda.$dirty" class="alert alert-danger">
                     Por favor, preencha o campo Renda!    
+                </div>
+                <div ng-show="propostaForm.renda.$error.min" class="alert alert-danger">
+                    A renda não pode ser negativa!    
                 </div>    
                 <input type="button" ng-click="cadastrarProposta(proposta)" value="Cadastrar" class="btn btn-primary" ng-disabled="propostaForm.$invalid">
             </form>
