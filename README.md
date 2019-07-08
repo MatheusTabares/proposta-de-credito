@@ -10,12 +10,22 @@
     Junit
     Swagger
     Docker
+
+## Frontend
+    AngularJS
+    Bootstrap
+    NodeJS
+    Express
+    Docker
+    JQuery
+    JavaScript
     
 # Passos para execução
     **PRÉ-REQUISITOS**
     Ter instalado Java versão 8 
     Ter instalado Docker 18.09.6 
-    Ter instalado o Maven
+    Ter instalado Maven
+    Ter instalado Node
 
 ## Executar backend
 
@@ -29,13 +39,13 @@
 	*`mvn clean install`
 
 4.Construa a imagem docker com o comando:
-	*`docker build -t proposta-credito .`
+	*`docker build -t api .`
 
 5.Confira a imagem criada no registro local docker com o comando:
 	*`docker images`
 
 4.Execute a aplicação no container docker com o comando:
-	*`docker run -p 8080:8080 proposta-credito`
+	*`docker run -p 8080:8080 api`
 
 5.Para enviar a proposta de crédito para a análise utilize a URL e o formato JSON a seguir:
 	`POST http://localhost:8080/propostas`
@@ -55,6 +65,27 @@
 
 	**Documentação das rotas você encontra aqui**
 	http://localhost:8080/swagger-ui.html
+
+
+## Executar frontend
+
+1.Navegue até a pasta /frontend no repositório:
+	*`cd frontend/`
+
+3.Construa a aplicação e execute os testes com o comando:
+	*`npm install`
+
+4.Construa a imagem docker com o comando:
+	*`docker build -t frontend .`
+
+5.Confira a imagem criada no registro local docker com o comando:
+	*`docker images`
+
+4.Execute a aplicação no container docker com o comando:
+	*`docker run -p 5000:5000 frontend`
+	
+5.Acesse a aplaicação pelo browser de sua preferência com a seguinte URL:
+	*`http://localhost:5000`
 
 	
 ## Observações
