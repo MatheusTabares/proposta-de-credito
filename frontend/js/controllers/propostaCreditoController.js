@@ -7,7 +7,31 @@ app.controller("propostaCreditoController", function($scope, propostaCreditoServ
     $scope.estados=[
         {nome: "Acre"},
         {nome: "Alagoas"},
-        {nome: "Amapá"}
+        {nome: "Amapá"},
+        {nome: "Amazonas"},
+        {nome: "Bahia"},
+        {nome: "Ceará"},
+        {nome: "Distrito Federal"},
+        {nome: "Espírito Santo"},
+        {nome: "Goiás"},
+        {nome: "Maranhão"},
+        {nome: "Mato Grosso"},
+        {nome: "Mato Grosso do Sul"},
+        {nome: "Minas Gerais"},
+        {nome: "Pará"},
+        {nome: "Paraíba"},
+        {nome: "Paraná"},
+        {nome: "Pernambuco"},
+        {nome: "Piauí"},
+        {nome: "Rio de Janeiro"},
+        {nome: "Rio Grande do Norte"},
+        {nome: "Rio Grande do Sul"},
+        {nome: "Rondônia"},
+        {nome: "Roraima"},
+        {nome: "Santa Catarina"},
+        {nome: "São Paulo"},
+        {nome: "Sergipe"},
+        {nome: "Tocantins"}
     ];
     $scope.sexos=[
         {cod: "M", nome: "Masculino"},
@@ -19,20 +43,14 @@ app.controller("propostaCreditoController", function($scope, propostaCreditoServ
         {cod: "VIUVO", nome: "Viúvo(a)"},
         {cod: "DIVORCIADO", nome: "Divorciado(a)"}
     ];
-    $('.dinheiro').mask('#.##0,00', {reverse: true});
-
+    
     $scope.cadastrarProposta = function(proposta) {
-        
         propostaCreditoService.cadastrarProposta(proposta).then(function (result) {
             delete $scope.proposta;
             $scope.propostaForm.$setPristine();
-            
-            if(result.status == 200) {
-                alert("Cadastrado com sucesso!");
-                limparDados();
-            }
+            alert("Cadastrado com sucesso!");
+            limparDados();
         });
-
     }
 
     $scope.buscarPropostaPorCpf = function(filtroCpf) {
